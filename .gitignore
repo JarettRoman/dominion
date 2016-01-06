@@ -1,0 +1,9 @@
+lib/
+bin/
+.idea/
+pip-selfcheck.json
+include/
+*.pyc
+instance/db_config.py
+.project
+.Python
