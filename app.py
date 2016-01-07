@@ -3,6 +3,8 @@ import MySQLdb
 import MySQLdb.cursors
 import simplejson as json
 from instance import db_config
+from wtforms import *
+from pydash import _
 
 app = Flask(__name__)
 
@@ -22,11 +24,43 @@ except MySQLdb.Error as err:
 
 else:
 
-    @app.route("/")
+    @app.route("/", methods=['GET', 'POST'])
     def main():
+        class RandomizerForm(Form):
+            base = BooleanField('Base')
+            intrigue = BooleanField('Intrigue')
+            prosperity = BooleanField('Prosperity')
+            seaside = BooleanField('Seaside')
+
+            randomize_button = SubmitField('Get cards!')
+
+        form = RandomizerForm()
+
+        return render_template('main.html', form=form)
+
+    @app.route("/cards", methods=['POST'])
+    def cards():
+        #grab sets from request.form
+        sets = []
+        for set in _.keys(request.form):
+            if set != 'randomize_button':
+                sets.append("CardSet = " + "\'" + set + "\'")
+
+        where_string = ' or '.join(sets)
+
+        query = "SELECT * FROM cards WHERE %s" % where_string
+
+
+        cursor.execute(query)
+
+        content = cursor.fetchall()
+
+        return json.dumps(content)
+
+    @app.route("/api/v1/allcards")
+    def all():
         cursor.execute("SELECT * FROM cards")
         content = cursor.fetchall()
-        cursor.close()
         return json.dumps(content)
 
 
