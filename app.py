@@ -52,7 +52,7 @@ else:
 
         where_string = ', '.join(sets)
 
-        query = "SELECT * FROM cards WHERE CardSet IN (%s)" % where_string
+        query = "SELECT * FROM cards WHERE CardSet IN (%s) ORDER BY RAND() LIMIT 10" % where_string
 
         cursor.execute(query)
 
