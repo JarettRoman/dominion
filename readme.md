@@ -2,7 +2,7 @@
 I like to play Dominion a lot, so this is a randomizer app that I plan on tailoring to my own preferences.  
 
 #### TODO:
-~~* Grab 10 cards only~~
+* ~~Grab 10 cards only~~
 * ~~Images~~
 * Figure out rules for expansions like Prosperity, Dark Ages, and Adventures. Not all cards should be randomized.
 * ~~Deal with cards with spaces and punctuation~~
