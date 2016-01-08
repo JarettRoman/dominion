@@ -5,6 +5,7 @@ import simplejson as json
 from instance import db_config
 from wtforms import *
 from pydash import _
+import utils
 
 app = Flask(__name__)
 
@@ -31,6 +32,7 @@ else:
             intrigue = BooleanField('Intrigue')
             prosperity = BooleanField('Prosperity')
             seaside = BooleanField('Seaside')
+            darkages = BooleanField('Dark Ages')
 
             randomize_button = SubmitField('Get cards!')
 
@@ -43,19 +45,22 @@ else:
         #grab sets from request.form
         sets = []
         for set in _.keys(request.form):
-            if set != 'randomize_button':
-                sets.append("CardSet = " + "\'" + set + "\'")
+            if set == 'darkages':
+                sets.append("\'Dark Ages\'")
+            elif set != 'randomize_button':
+                sets.append("\'" + set + "\'")
 
-        where_string = ' or '.join(sets)
+        where_string = ', '.join(sets)
 
-        query = "SELECT * FROM cards WHERE %s" % where_string
-
+        query = "SELECT * FROM cards WHERE CardSet IN (%s)" % where_string
 
         cursor.execute(query)
 
         content = cursor.fetchall()
 
-        return json.dumps(content)
+        img_links = utils.cardImgLinker(content)
+
+        return render_template('cards.html', links=img_links)
 
     @app.route("/api/v1/allcards")
     def all():
