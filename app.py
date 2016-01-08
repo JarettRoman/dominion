@@ -6,6 +6,7 @@ from instance import db_config
 from wtforms import *
 from pydash import _
 import utils
+import not_statement
 
 app = Flask(__name__)
 
@@ -30,9 +31,14 @@ else:
         class RandomizerForm(Form):
             base = BooleanField('Base')
             intrigue = BooleanField('Intrigue')
-            prosperity = BooleanField('Prosperity')
             seaside = BooleanField('Seaside')
+            alchemy = BooleanField('Alchemy')
+            prosperity = BooleanField('Prosperity')
+            cornucopia = BooleanField('Cornucopia')
+            hinterlands = BooleanField('Hinterlands')
             darkages = BooleanField('Dark Ages')
+            guilds = BooleanField('Guilds')
+            adventures = BooleanField('Adventures')
 
             randomize_button = SubmitField('Get cards!')
 
@@ -52,7 +58,7 @@ else:
 
         where_string = ', '.join(sets)
 
-        query = "SELECT * FROM cards WHERE CardSet IN (%s) ORDER BY RAND() LIMIT 10" % where_string
+        query = "SELECT * FROM cards WHERE CardSet IN ({}) AND ({}) ORDER BY RAND() LIMIT 10".format(where_string, not_statement.not_stuff)
 
         cursor.execute(query)
 
