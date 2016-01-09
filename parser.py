@@ -5,7 +5,7 @@ import MySQLdb
 import re
 
 web = urllib.urlopen("http://dominion.diehrstraits.com/?set=All&f=list")
-s = re.sub('<(br|hr)>', ', ', web.read())
+s = re.sub('<(br|hr|i)>', '/', web.read())
 
 print s
 
