@@ -28,6 +28,12 @@ else:
 
     @app.route("/", methods=['GET', 'POST'])
     def main():
+
+        def set_checker(form, field):
+            if len(request.form) > 1:
+                return True
+            raise ValidationError('Please select at least one set.')
+
         class RandomizerForm(Form):
             base = BooleanField('Base')
             intrigue = BooleanField('Intrigue')
@@ -40,40 +46,39 @@ else:
             guilds = BooleanField('Guilds')
             adventures = BooleanField('Adventures')
 
-            randomize_button = SubmitField('Get cards!')
+            randomize_button = SubmitField('Get cards!', [set_checker])
 
-        form = RandomizerForm()
+        form = RandomizerForm(request.form)
+
+        if request.method == 'POST' and form.validate():
+
+            sets = []
+            for set in _.keys(request.form):
+                if set == 'darkages':
+                    sets.append("\'Dark Ages\'")
+                elif set != 'randomize_button':
+                    sets.append("\'" + set + "\'")
+
+            where_string = ', '.join(sets)
+
+            query = """CREATE OR REPLACE VIEW picked_cards as
+                    SELECT * FROM cards
+                    WHERE CardSet IN ({}) AND ({}) ORDER BY RAND() LIMIT 10""".format(where_string, not_statement.not_stuff)
+
+            cursor.execute(query)
+
+            query = "SELECT * FROM picked_cards ORDER BY CardSet, Cost"
+
+            cursor.execute(query)
+
+            content = cursor.fetchall()
+
+            img_links = utils.cardImgLinker(content)
+
+
+            return render_template('main.html', form=form, links=img_links)
 
         return render_template('main.html', form=form)
-
-    @app.route("/cards", methods=['POST'])
-    def cards():
-        #grab sets from request.form
-        sets = []
-        for set in _.keys(request.form):
-            if set == 'darkages':
-                sets.append("\'Dark Ages\'")
-            elif set != 'randomize_button':
-                sets.append("\'" + set + "\'")
-
-        where_string = ', '.join(sets)
-
-        query = "SELECT * FROM cards WHERE CardSet IN ({}) AND ({}) ORDER BY RAND() LIMIT 10".format(where_string, not_statement.not_stuff)
-
-        cursor.execute(query)
-
-        content = cursor.fetchall()
-
-        img_links = utils.cardImgLinker(content)
-
-        return render_template('cards.html', links=img_links)
-
-    @app.route("/api/v1/allcards")
-    def all():
-        cursor.execute("SELECT * FROM cards")
-        content = cursor.fetchall()
-        return json.dumps(content)
-
 
     if __name__ == '__main__':
         app.run(debug=True)

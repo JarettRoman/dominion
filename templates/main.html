@@ -5,7 +5,12 @@
     <title>Randomizer</title>
 </head>
 <body>
-    <form id="randomizer_form" method="POST" action="/cards">
+    {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+        {% for error in field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+    {% endfor %}
+    <form id="randomizer_form" method="POST" action="/">
         <div>{{form.base}}{{form.base.label}}</div>
         <div>{{form.intrigue}}{{form.intrigue.label}}</div>
         <div>{{form.seaside}}{{form.seaside.label}}</div>
@@ -21,10 +26,10 @@
 
         <div>{{form.randomize_button}}</div>
     </form>
+    <br />
+    {% for link in links %}
+        <img class="cards"src="{{link}}">
+    {% endfor %}
 
-    <div id="cards"></div>
-
-<script src="../static/js/jquery-1.11.3.min.js"></script>
-<script src="../static/js/scripts.js"></script>
 </body>
 </html>
