@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Randomizer</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
 </head>
 <body>
     {% for field_name, field_errors in form.errors|dictsort if field_errors %}
@@ -10,7 +11,7 @@
             <li>{{ error }}</li>
         {% endfor %}
     {% endfor %}
-    <form id="randomizer_form" method="POST" action="/">
+    <form id="randomizer_form" method="GET" action="/">
         <div>{{form.base}}{{form.base.label}}</div>
         <div>{{form.intrigue}}{{form.intrigue.label}}</div>
         <div>{{form.seaside}}{{form.seaside.label}}</div>
@@ -27,9 +28,14 @@
         <div>{{form.randomize_button}}</div>
     </form>
     <br />
-    {% for link in links %}
-        <img class="cards"src="{{link}}">
-    {% endfor %}
+    <div id="card_container">
+        {% for link in links %}
+            <div class="card">
+                <img src="{{link}}">
+            </div>
+        {% endfor %}
+    </div>
+
 
 </body>
 </html>

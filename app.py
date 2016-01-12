@@ -30,7 +30,7 @@ else:
     def main():
 
         def set_checker(form, field):
-            if len(request.form) > 1:
+            if len(request.values) > 1:
                 return True
             raise ValidationError('Please select at least one set.')
 
@@ -48,12 +48,12 @@ else:
 
             randomize_button = SubmitField('Get cards!', [set_checker])
 
-        form = RandomizerForm(request.form)
+        form = RandomizerForm(request.values)
 
-        if request.method == 'POST' and form.validate():
+        if ('randomize_button' in request.values) and form.validate():
 
             sets = []
-            for set in _.keys(request.form):
+            for set in _.keys(request.values):
                 if set == 'darkages':
                     sets.append("\'Dark Ages\'")
                 elif set != 'randomize_button':

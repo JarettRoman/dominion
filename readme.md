@@ -9,3 +9,5 @@ I like to play Dominion a lot, so this is a randomizer app that I plan on tailor
 * Isolate cards that involve playing with curses, ruins, add more actions, buys, cards, etc.
 * ~~Fix crash bug where user clicks submit without selecting any set.~~
 * ~~Make app single page only~~
+* ~~Scaling images properly for different window widths~~
+* ~~Improve request handling to get rid of annoying 'confirm form resubmission' alert~~
