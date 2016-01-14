@@ -29,7 +29,7 @@ else:
     def main():
 
         def set_checker(form, field):
-            if len(request.values) > 1:
+            if len(request.values) > 2:
                 return True
             raise ValidationError('Please select at least one set.')
 
@@ -57,7 +57,6 @@ else:
                 if set == 'darkages':
                     sets.append("\'Dark Ages\'")
                 elif set != 'randomize_button' and set != 'blacklist':
-                    print set
                     sets.append("\'" + set + "\'")
 
             where_string = ', '.join(sets)
@@ -68,6 +67,7 @@ else:
                                                                                       not_statement.blacklist(request.values['blacklist']))
 
             cursor.execute(query)
+
 
             query = "SELECT * FROM picked_cards ORDER BY CardSet, Cost"
 
