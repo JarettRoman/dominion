@@ -11,5 +11,6 @@ I like to play Dominion a lot, so this is a randomizer app that I plan on tailor
 * ~~Make app single page only~~
 * ~~Scaling images properly for different window widths~~
 * ~~Improve request handling to get rid of annoying 'confirm form resubmission' alert~~
-* Implement a way to blacklist and whitelist cards.
+* ~~Implement a way to blacklist and whitelist cards.
 * Put the Knights card in the randomizer.
+* Blacklist works, but kind of buggy when there's a trailing comma. Working on more efficient way using more complex regexp
