@@ -19,8 +19,6 @@ try:
         cursorclass = MySQLdb.cursors.DictCursor
     )
 
-    cursor = cnx.cursor()
-
 except MySQLdb.Error as err:
     print err
 
@@ -29,6 +27,7 @@ else:
     @app.route("/", methods=['GET', 'POST'])
     def main():
 
+        #WTForms validators
         def set_checker(form, field):
             if len(request.values) > 2:
                 return True
@@ -57,6 +56,8 @@ else:
 
         if ('randomize_button' in request.values) and form.validate():
 
+            cursor = cnx.cursor()
+
             sets = []
             for set in _.keys(request.values):
                 if set == 'darkages':
@@ -79,8 +80,9 @@ else:
 
             content = cursor.fetchall()
 
-            img_links = utils.cardImgLinker(content)
+            cursor.close()
 
+            img_links = utils.cardImgLinker(content)
 
             return render_template('main.html', form=form, links=img_links)
 
@@ -88,4 +90,3 @@ else:
 
     if __name__ == '__main__':
         app.run(debug=True)
-
