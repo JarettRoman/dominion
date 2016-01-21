@@ -1,8 +1,12 @@
 #Dominion Randomizer App
-I like to play Dominion a lot, so this is a randomizer app that I plan on tailoring to my own preferences.  
+I like to play Dominion a lot, so this is a randomizer app that I plan on tailoring to my own preferences.
+
+Check it out [here](http://afrocious.pythonanywhere.com).
+  
+
 
 #### TODO:
-* Put the Knights card in the randomizer.
+* Put the Knights card in the randomizer for Dark Ages.
 * ~~Grab 10 cards only~~
 * ~~Images~~
 * ~~Figure out rules for expansions like Prosperity, Dark Ages, and Adventures. Not all cards should be randomized.~~
