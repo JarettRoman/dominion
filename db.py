@@ -1,4 +1,5 @@
 import MySQLdb
+import MySQLdb.cursors
 from instance import db_config
 
 class DB:
