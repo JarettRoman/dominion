@@ -2,6 +2,7 @@
 I like to play Dominion a lot, so this is a randomizer app that I plan on tailoring to my own preferences.  
 
 #### TODO:
+* Put the Knights card in the randomizer.
 * ~~Grab 10 cards only~~
 * ~~Images~~
 * ~~Figure out rules for expansions like Prosperity, Dark Ages, and Adventures. Not all cards should be randomized.~~
@@ -11,6 +12,5 @@ I like to play Dominion a lot, so this is a randomizer app that I plan on tailor
 * ~~Make app single page only~~
 * ~~Scaling images properly for different window widths~~
 * ~~Improve request handling to get rid of annoying 'confirm form resubmission' alert~~
-* ~~Implement a way to blacklist and whitelist cards.
-* Put the Knights card in the randomizer.
-* ~~Blacklist works, but kind of buggy when there's a trailing comma. Working on more efficient way using more complex regexp
+* ~~Implement a way to blacklist and whitelist cards.~~
+* ~~Blacklist works, but kind of buggy when there's a trailing comma. Working on more efficient way using more complex regexp~~
